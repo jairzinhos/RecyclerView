@@ -13,14 +13,14 @@
         android:theme="@style/Theme.RecyclerView"
         tools:targetApi="31">
         <activity
-            android:name=".MoviesAdapter"
+            android:name=".MatchesAdapter"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MovieModel"
+            android:name=".MatchModel"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -7,57 +7,97 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private List<MovieModel> movieList = new ArrayList<>();
-    private MoviesAdapter mAdapter;
+    private List<MatchModel> matchesList = new ArrayList<>();
+    ArrayList<String> listFutbolHeaders = new ArrayList<String>();
+    ArrayList<String> listFutboldata = new ArrayList<String>();
+    Document doc = null;
+    private MatchesAdapter mAdapter;
+    ArrayList<String> listFutbolUno;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        mAdapter = new MoviesAdapter(movieList);
+        mAdapter = new MatchesAdapter(matchesList);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        prepareMovieData();
+        ///GetHtmlFromWeb();
+        prepareMatchData();
+
     }
-    private void prepareMovieData() {
-        MovieModel movie = new MovieModel("Mad Max: Fury Road", "Action & Adventure", "2015");
-        movieList.add(movie);
-        movie = new MovieModel("Inside Out", "Animation, Kids & Family", "2015");
-        movieList.add(movie);
-        movie = new MovieModel("Star Wars: Episode VII - The Force Awakens", "Action", "2015");
-        movieList.add(movie);
-        movie = new MovieModel("Shaun the Sheep", "Animation", "2015");
-        movieList.add(movie);
-        movie = new MovieModel("The Martian", "Science Fiction & Fantasy", "2015");
-        movieList.add(movie);
-        movie = new MovieModel("Mission: Impossible Rogue Nation", "Action", "2015");
-        movieList.add(movie);
-        movie = new MovieModel("Up", "Animation", "2009");
-        movieList.add(movie);
-        movie = new MovieModel("Star Trek", "Science Fiction", "2009");
-        movieList.add(movie);
-        movie = new MovieModel("The LEGO MovieModel", "Animation", "2014");
-        movieList.add(movie);
-        movie = new MovieModel("Iron Man", "Action & Adventure", "2008");
-        movieList.add(movie);
-        movie = new MovieModel("Aliens", "Science Fiction", "1986");
-        movieList.add(movie);
-        movie = new MovieModel("Chicken Run", "Animation", "2000");
-        movieList.add(movie);
-        movie = new MovieModel("Back to the Future", "Science Fiction", "1985");
-        movieList.add(movie);
-        movie = new MovieModel("Raiders of the Lost Ark", "Action & Adventure", "1981");
-        movieList.add(movie);
-        movie = new MovieModel("Goldfinger", "Action & Adventure", "1965");
-        movieList.add(movie);
-        movie = new MovieModel("Guardians of the Galaxy", "Science Fiction & Fantasy", "2014");
-        movieList.add(movie);
+    private void prepareMatchData() {
+        /*
+
+
+        for (int i = 0; i > listFutboldata.size(); i = i + 4) {
+            MatchModel match = new MatchModel(listFutboldata.get(i), listFutboldata.get(i+1), listFutboldata.get(i +2), listFutboldata.get(i +3));
+            matchesList.add(match);
+
+
+        }
+        */
+        ///mAdapter.notifyDataSetChanged();
+        ///MatchModel movie = new MatchModel("Mad Max: Fury Road", "Action & Adventure", "2015");
+        ///movieList.add(movie);
+        MatchModel match = new MatchModel("Inside Out", "Animation, Kids & Family", "Colombiana", "Win", "En Vivo", "https");
+        matchesList.add(match);
         mAdapter.notifyDataSetChanged();
     }
-}
+    /*
+    private void GetHtmlFromWeb() {
+
+        new Thread(new Runnable() {
+            @Override
+
+
+            public void run() {
+
+
+                try {
+                    doc = Jsoup.connect("https://www.futbolred.com/parrilla-de-futbol").get();
+                    Elements links = doc.select("table");
+                    Elements ths = links.select("th");
+                    Elements tds = links.select("td");
+
+                    for(Element titulo : ths) {
+                        listFutbolHeaders.add(titulo.text());
+                        for (Element singleMatch : tds) {
+                            listFutboldata.add((singleMatch.text()));
+                        }
+
+                }
+            } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                /*
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //text3.setText(Html.fromHtml(stringBuilder.toString()));
+                        ///text3.setText("" + listFutbolHeaders);
+                        listFutbolUno = listFutbolHeaders;
+
+                    }
+                });
+                *
+                 */
+            }
+    /*
+    }).start();
+    }
+
+     */
+
